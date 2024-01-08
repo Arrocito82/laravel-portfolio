@@ -24,7 +24,9 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::resource('chirps', ChirpController::class)
-->only(['index', 'store'])//index is a function that returns a list of chirps, store is the save chirp function
+->only(['index', 'store', 'edit', 'update'])
+//index is a function that returns a list of chirps, store is the save chirp function
+// edit is the function that returns the edit chirp page, update is the function that updates the chirp
 ->middleware(['auth', 'verified']);//verified and auth are the middleware functions that are called before the chirp controller is called
 
 Route::middleware('auth')->group(function () {
