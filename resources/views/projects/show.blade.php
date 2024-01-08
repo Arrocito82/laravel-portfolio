@@ -2,12 +2,17 @@
     <div class="container mx-auto">
 
         @if ($project->user->is(auth()->user()))
-            <div class="mt-6 flex items-center justify-end gap-x-6">
-                <a href="{{ route('projects.edit', $project) }}"
-                    class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Edit</a>
-                <button type="button" class="text-sm font-semibold leading-6 text-gray-900" data-te-toggle="modal" >Delete</button>
-                
-               
+            <div class="mt-6 flex items-center justify-end gap-x-2">
+                <x-primary-button class="mt-4"><a
+                        href="{{ route('projects.edit', $project) }}">Edit</a></x-primary-button>
+                <form method="POST" action="{{ route('projects.destroy', $project) }}">
+                    @csrf
+                    @method('delete')
+                    <x-danger-button type="submit" class="mt-4"
+                        onclick="event.preventDefault(); this.closest('form').submit();">{{ __('Delete') }}</x-danger-button>
+                </form>
+
+
             </div>
         @endif
 

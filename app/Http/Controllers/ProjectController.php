@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
-use Illuminate\Http\Request;
+use Illuminate\Http\{Request,RedirectResponse};
 use Illuminate\View\View;
 
 class ProjectController extends Controller
@@ -61,7 +61,7 @@ class ProjectController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Project $project)
+    public function update(Request $request, Project $project):RedirectResponse
     {
         $this->authorize('update',$project);
         $validated = $request->validate([
@@ -80,8 +80,11 @@ class ProjectController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Project $project)
+    public function destroy(Project $project):RedirectResponse
     {
-        //
+        $this->authorize('delete',$project);
+        $project->delete();
+ 
+        return redirect(route('projects.index'));
     }
 }
