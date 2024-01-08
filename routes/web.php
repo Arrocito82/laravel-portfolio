@@ -1,7 +1,6 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ChirpController;
+use App\Http\Controllers\{ProfileController,ChirpController, ProjectController};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,6 +28,9 @@ Route::resource('chirps', ChirpController::class)
 // edit is the function that returns the edit chirp page, update is the function that updates the chirp
 // destroy is the function that deletes the chirp
 ->middleware(['auth', 'verified']);//verified and auth are the middleware functions that are called before the chirp controller is called
+Route::resource('projects', ProjectController::class)
+->only(['index','create', 'store', 'show', 'edit', 'update', 'destroy'])
+->middleware(['auth', 'verified']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
