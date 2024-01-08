@@ -12,7 +12,7 @@ class ChirpController extends Controller
      */
     public function index():View
     {
-        return view('chirps.index');
+        return view('chirps.index',['chirps'=>Chirp::with('user')->latest()->get()]);
     }
 
     /**
@@ -66,4 +66,5 @@ class ChirpController extends Controller
     {
         //
     }
+
 }
