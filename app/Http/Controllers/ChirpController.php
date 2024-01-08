@@ -1,9 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\Chirp;
-use Illuminate\Http\Request;
+use Illuminate\Http\{Request, Response};
 
 class ChirpController extends Controller
 {
@@ -12,7 +11,7 @@ class ChirpController extends Controller
      */
     public function index():Response
     {
-        return response('Hello World!');
+        return Response('Hello World!');
     }
 
     /**
