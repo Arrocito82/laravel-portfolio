@@ -23,4 +23,9 @@ class Project extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function chirps():HasMany
+    {
+        return $this->hasMany(Chirp::class);
+    }
 }

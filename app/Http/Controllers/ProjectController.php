@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Project;
+use App\Models\{Project, Chirp};
 use Illuminate\Http\{Request,RedirectResponse};
 use Illuminate\View\View;
 
@@ -47,7 +47,9 @@ class ProjectController extends Controller
      */
     public function show(Project $project):View
     {
-        return view('projects.show', ['project' => $project]);
+        return view('projects.show', [
+            'project' => $project,
+            'chirps' => $project->chirps()->where('parent_id', null)->get()]);
     }
     
     /**

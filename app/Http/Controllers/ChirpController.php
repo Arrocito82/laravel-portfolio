@@ -31,9 +31,10 @@ class ChirpController extends Controller
         $validatedData=$request->validate([
             'message'=>'required|string|max:255',
             'parent_id'=>'exists:chirps,id',
+            'project_id'=>'exists:projects,id',
         ]);
         $request->user()->chirps()->create($validatedData);
-        return redirect(route('chirps.index'));
+        return redirect(route('projects.show', $request->project_id));
     }
 
     /**
@@ -61,10 +62,9 @@ class ChirpController extends Controller
         $this->authorize('update',$chirp);
         $validatedData=$request->validate([
             'message'=>'required|string|max:255',
-            'parent_id'=>'exists:chirps,id',
         ]);
         $chirp->update($validatedData);
-        return redirect(route('chirps.index'));
+        return redirect(route('projects.show', $chirp->project_id));
     }
 
     /**
@@ -74,7 +74,7 @@ class ChirpController extends Controller
     {
         $this->authorize('delete',$chirp);
         $chirp->delete();
-        return redirect(route('chirps.index'));
+        return redirect(route('projects.show', $chirp->project_id));
     }
 
 }

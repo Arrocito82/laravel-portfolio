@@ -12,6 +12,7 @@ class Chirp extends Model
     protected $fillable = [
         'message',
         'parent_id',
+        'project_id',
     ];
     // Eventos que se disparan
     protected $dispatchesEvents = [
@@ -21,6 +22,11 @@ class Chirp extends Model
     public function user():BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function project(): BelongsTo
+    {
+        return $this->belongsTo(Project::class, 'project_id');
     }
 
     public function parent():BelongsTo
