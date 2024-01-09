@@ -30,6 +30,7 @@ class ChirpController extends Controller
     {
         $validatedData=$request->validate([
             'message'=>'required|string|max:255',
+            'parent_id'=>'exists:chirps,id',
         ]);
         $request->user()->chirps()->create($validatedData);
         return redirect(route('chirps.index'));
@@ -60,6 +61,7 @@ class ChirpController extends Controller
         $this->authorize('update',$chirp);
         $validatedData=$request->validate([
             'message'=>'required|string|max:255',
+            'parent_id'=>'exists:chirps,id',
         ]);
         $chirp->update($validatedData);
         return redirect(route('chirps.index'));

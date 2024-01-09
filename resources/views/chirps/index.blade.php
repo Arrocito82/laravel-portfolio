@@ -2,14 +2,14 @@
     <div class="max-w-2xl mx-auto p-4 sm:p-6 lg:p-8">
         <form method="POST" action="{{ route('chirps.store') }}">
             @csrf
-            <textarea name="message" placeholder="{{ __('What\'s on your mind?') }}"
+            <textarea name="message" placeholder="{{ __('What burning curiosities keep your mind alive? Ask away, and let\'s dive into the ocean of knowledge together!') }}"
                 class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">{{ old('message') }}</textarea>
             <x-input-error :messages="$errors->get('message')" class="mt-2" />
             <x-primary-button class="mt-4">{{ __('Chirp') }}</x-primary-button>
         </form>
         @if ('chirps')
-            <div class="pt-6 text-xl"><strong>{{ __('Chirps') }}</strong></div>
-            @foreach ($chirps as $chirp)
+        <div class="pt-6 text-xl"><strong>{{ __('Chirps') }}</strong></div>
+        @foreach ($chirps as $chirp)
                 <div class="mt-6 bg-white shadow-sm rounded-lg divide-y">
                     <div class="p-6 flex space-x-2">
                         <div class="pe-4">
@@ -56,8 +56,17 @@
                                 @endif
                             </div>
                             <p class="mt-4 text-lg text-gray-900">{{ $chirp->message }}</p>
+                            <form method="POST" action="{{ route('chirps.store') }}">
+                                @csrf
+                                <input type="hidden" name="parent_id" value="{{$chirp->id}}">
+                                <textarea name="message" placeholder="{{ __('Your input matters! What are your thoughts?')}}"
+                                    class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">{{ old('message') }}</textarea>
+                                <x-input-error :messages="$errors->get('message')" class="mt-2" />
+                                <x-primary-button class="mt-4">{{ __('Chirp') }}</x-primary-button>
+                            </form>
                         </div>
                     </div>
+                    
                 </div>
             @endforeach
         @endif
